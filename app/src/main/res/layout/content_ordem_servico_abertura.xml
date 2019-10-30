@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".OrdemServicoAberturaActivity">
+    <!--tools:showIn="@layout/activity_ordem_servico_abertura">-->
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ordem de serviço - Abertura"
+        android:gravity="center"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/TextAppearance.MaterialComponents.Headline6"
+        />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtIdentificacao"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="CT/04"
+        android:gravity="start"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtTitulo"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtEnviadoDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enviado:"
+        android:gravity="start"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtIdentificacao"
+        style="@style/TextAppearance.MaterialComponents.Body2"
+        />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtEnviado"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Enviado:"
+        android:gravity="start"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintStart_toEndOf="@+id/txtEnviadoDesc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtIdentificacao"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtRecebidoDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Recebido:"
+        android:gravity="start"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtEnviado"
+        style="@style/TextAppearance.MaterialComponents.Body2"
+        />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtRecebido"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Recebido:"
+        android:gravity="start"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintStart_toEndOf="@+id/txtRecebidoDesc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtEnviado"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtAberturaDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Abertura:"
+        android:gravity="start"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtRecebido"
+        style="@style/TextAppearance.MaterialComponents.Body2"
+        />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtAbertura"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Abertura:"
+        android:gravity="start"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintStart_toEndOf="@+id/txtAberturaDesc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtRecebido"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtUnidadeDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Unidade:"
+        android:gravity="start"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtAbertura"
+        style="@style/TextAppearance.MaterialComponents.Body2"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtUnidade"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Unidade:"
+        android:gravity="start"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintStart_toEndOf="@+id/txtUnidadeDesc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtAbertura"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtLocalDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Local:"
+        android:gravity="start"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtUnidade"
+        style="@style/TextAppearance.MaterialComponents.Body2"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtLocal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Local:"
+        android:gravity="start"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintStart_toEndOf="@+id/txtLocalDesc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtUnidade"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtSolicitanteDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Solicitante:"
+        android:gravity="start"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtLocal"
+        style="@style/TextAppearance.MaterialComponents.Body2"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtSolicitante"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Solicitante:"
+        android:gravity="start"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintStart_toEndOf="@+id/txtSolicitanteDesc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtLocal"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtDescricaoServicoDesc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Descrição do serviço solicitado:"
+        android:gravity="start"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtSolicitante"
+        style="@style/TextAppearance.MaterialComponents.Body2"
+        />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtDescricaoServico"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Descrição do serviço solicitado:"
+        android:gravity="start"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtDescricaoServicoDesc"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnPrevisao"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:text="Previsão"
+        app:layout_constraintTop_toBottomOf="@+id/txtDescricaoServico"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnFoto"
+        style="@style/Widget.MaterialComponents.BottomNavigationView"
+        android:textColor="@color/primaryColor"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnFoto"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:text="Foto"
+        app:layout_constraintTop_toBottomOf="@+id/btnPrevisao"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnExecutar"
+        style="@style/Widget.MaterialComponents.BottomNavigationView"
+        android:textColor="@color/primaryColor"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnExecutar"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:text="Executar"
+        app:layout_constraintTop_toBottomOf="@+id/btnFoto"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        style="@style/Widget.MaterialComponents.BottomNavigationView"
+        android:textColor="@color/secondaryTextColor"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

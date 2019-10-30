@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:padding="8dp"
+    app:cardCornerRadius="4dp"
+    style="@style/CardView.Light">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtContrato"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="start|center_vertical"
+            android:text="CT/06 - 01/07/2019 - OS 005"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            style="@style/TextAppearance.MaterialComponents.Body1"
+            />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgRecebida"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            app:srcCompat="@mipmap/ic_recebida"
+            android:scaleType="fitXY"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtContrato"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgAvalida"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            app:srcCompat="@mipmap/ic_avaliada"
+            android:scaleType="fitXY"
+            app:layout_constraintStart_toEndOf="@+id/imgRecebida"
+            app:layout_constraintTop_toBottomOf="@+id/txtContrato"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgAguardandoExecucao"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            app:srcCompat="@mipmap/ic_aguardando_execucao"
+            android:scaleType="fitXY"
+            app:layout_constraintStart_toEndOf="@+id/imgAvalida"
+            app:layout_constraintTop_toBottomOf="@+id/txtContrato"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgAguardandoTransmissao"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            app:srcCompat="@mipmap/ic_aguardando_transmissao"
+            android:scaleType="fitXY"
+            app:layout_constraintStart_toEndOf="@+id/imgAguardandoExecucao"
+            app:layout_constraintTop_toBottomOf="@+id/txtContrato"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgDisponivel"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:layout_constraintEnd_toStartOf="@+id/imgUrgencia"
+            app:layout_constraintTop_toBottomOf="@+id/txtContrato"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:srcCompat="@mipmap/ic_alert"/>
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgUrgencia"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtContrato"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:srcCompat="@mipmap/ic_urgencia"/>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

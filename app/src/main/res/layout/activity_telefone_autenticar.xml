@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Validação de número de telefone"
+        android:gravity="center"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/imgLogo"
+        style="@style/TextAppearance.AppCompat.Headline"
+        />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgLogo"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:scaleType="fitXY"
+        app:srcCompat="@mipmap/ic_logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtTitulo"
+        android:layout_marginTop="10dp"
+        />
+
+    <net.rimoto.intlphoneinput.IntlPhoneInput
+        android:id="@+id/edtTelefone"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:textSize="14sp"
+        app:textColor="#000000"
+        app:flagPaddingBottom="4dp"
+        app:flagPaddingEnd="4dp"
+        app:flagPaddingStart="4dp"
+        app:flagPaddingTop="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/edtCodigoVerificacao"
+        app:layout_constraintBottom_toTopOf="@+id/btnIniciarVerificacao"
+        app:layout_constraintTop_toBottomOf="@+id/imgLogo"
+        />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edtCodigoVerificacao"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Código de verificação"
+        android:inputType="number"
+        app:layout_constraintStart_toEndOf="@+id/edtTelefone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnIniciarVerificacao"
+        app:layout_constraintTop_toBottomOf="@+id/imgLogo"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/txtDetalhe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtTelefone"
+        style="@style/TextAppearance.AppCompat.Subhead"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnIniciarVerificacao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Verificar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnVerificar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        style="@style/TextAppearance.MaterialComponents.Button"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnVerificar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Validar"
+        app:layout_constraintStart_toEndOf="@+id/btnIniciarVerificacao"
+        app:layout_constraintEnd_toStartOf="@+id/btnRevalidar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        style="@style/TextAppearance.MaterialComponents.Button"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnRevalidar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reenviar"
+        app:layout_constraintStart_toEndOf="@+id/btnVerificar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        style="@style/TextAppearance.MaterialComponents.Button"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

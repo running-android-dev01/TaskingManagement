@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "902403607931",
+    "firebase_url": "https://tasking-management.firebaseio.com",
+    "project_id": "tasking-management",
+    "storage_bucket": "tasking-management.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:902403607931:android:b7e7cbad2bd1bc4570c1de",
+        "android_client_info": {
+          "package_name": "com.bebsolutions.taskingmanagement"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "902403607931-0798uupgvusdb4j8r3hq10a2bn1l79j1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bebsolutions.taskingmanagement",
+            "certificate_hash": "1fc1df6475ca2a1b2d900e9825a0a38b0e9d6599"
+          }
+        },
+        {
+          "client_id": "902403607931-9mdljma7q52vog24v8554b7rfvrv1r2j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bebsolutions.taskingmanagement",
+            "certificate_hash": "c205368067987ace27e9b1fc29339c0d369a0241"
+          }
+        },
+        {
+          "client_id": "902403607931-sjdatvqt206lh7ju1m2r5lerivc23p86.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsDxfuFmc1baz7K1bttNQkei5Sf36qHhc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "902403607931-sjdatvqt206lh7ju1m2r5lerivc23p86.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
