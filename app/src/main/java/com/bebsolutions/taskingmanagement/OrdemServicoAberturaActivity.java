@@ -58,11 +58,10 @@ public class OrdemServicoAberturaActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
-    private FirebaseUser currentUser;
-    private FirebaseStorage storage;
 
     private static final int REQUEST_TAKE_PHOTO = 1;
     private static final int REQUEST_TAKE_ORDEM = 2;
+    private static final int REQUEST_TAKE_PHOTO_DESCRICAO = 3;
 
     private String mCurrentPhotoPath;
     private String imageFileName;
@@ -103,9 +102,8 @@ public class OrdemServicoAberturaActivity extends AppCompatActivity {
         btnExecutar = findViewById(R.id.btnExecutar);
 
         mAuth = FirebaseAuth.getInstance();
-        currentUser = mAuth.getCurrentUser();
         db = FirebaseFirestore.getInstance();
-        storage = FirebaseStorage.getInstance();
+
 
         if (ordemServico.dataAbertura==null){
             ordemServico.dataAbertura = Timestamp.now().toDate();
@@ -183,7 +181,8 @@ public class OrdemServicoAberturaActivity extends AppCompatActivity {
     }
 
     private void verificarFotoAntes(){
-        //btnFoto.end
+        ordemServico.flgFotoAntes = ordemServico.fotoAntes.size()>0;
+
         Drawable id_check = ContextCompat.getDrawable(
                 OrdemServicoAberturaActivity.this,
                 R.mipmap.ic_check
@@ -299,131 +298,23 @@ public class OrdemServicoAberturaActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         try {
             if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
-                setPic();
-                ordemServico.flgFotoAntes = true;
-                verificarFotoAntes();
+                Intent intent = new Intent(OrdemServicoAberturaActivity.this, OrdemServicoDescricaoFotoActivity.class);
+                intent.putExtra(OrdemServicoDescricaoFotoActivity.CT_ORDEM_SERVICO, ordemServico);
+                intent.putExtra(OrdemServicoDescricaoFotoActivity.CT_CAMINHO, mCurrentPhotoPath);
+                intent.putExtra(OrdemServicoDescricaoFotoActivity.CT_NOME, imageFileName);
+                startActivityForResult(intent, REQUEST_TAKE_PHOTO_DESCRICAO);
             }
             if (requestCode == REQUEST_TAKE_ORDEM && resultCode == RESULT_OK) {
                 //setPic();
                 ordemServico = data.getParcelableExtra(CT_ORDEM_SERVICO);
                 verificarPrevisaoAntes();
             }
-
-
+            if (requestCode == REQUEST_TAKE_PHOTO_DESCRICAO && resultCode == RESULT_OK) {
+                ordemServico = data.getParcelableExtra(CT_ORDEM_SERVICO);
+                verificarFotoAntes();
+            }
         } catch (Exception e) {
             Log.e(TAG, "ERRO = ", e);
         }
     }
-
-    @SuppressWarnings("unchecked")
-    private void setPic() {
-        try{
-            ExifInterface exif = new ExifInterface(mCurrentPhotoPath);
-            String orientacao = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
-            int codigoOrientacao = Integer.parseInt(orientacao);
-
-            // Get the dimensions of the View
-            //ExifInterface exif = new ExifInterface(mCurrentPhotoPath);
-
-            int targetW = 2560;
-            int targetH = 1440;
-
-            // Get the dimensions of the bitmap
-            BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-            bmOptions.inJustDecodeBounds = true;
-            BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-            int photoW = bmOptions.outWidth;
-            int photoH = bmOptions.outHeight;
-
-            // Determine how much to scale down the image
-            int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
-
-            // Decode the image file into a Bitmap sized to fill the View
-            bmOptions.inJustDecodeBounds = false;
-            bmOptions.inSampleSize = scaleFactor;
-            bmOptions.inPurgeable = true;
-
-            Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-
-
-            Matrix matrix = new Matrix();
-            switch (codigoOrientacao) {
-                case ExifInterface.ORIENTATION_NORMAL:
-                    matrix.postRotate(0);
-                    break;
-                case ExifInterface.ORIENTATION_ROTATE_90:
-                    matrix.postRotate(90);
-                    break;
-                case ExifInterface.ORIENTATION_ROTATE_180:
-                    matrix.postRotate(180);
-                    break;
-                case ExifInterface.ORIENTATION_ROTATE_270:
-                    matrix.postRotate(270);
-                    break;
-            }
-
-            bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 30, byteArrayOutputStream);
-            byte[] byteArray = byteArrayOutputStream.toByteArray();
-
-            StorageReference storageRef = storage.getReference();
-            StorageReference fotoImageRef = storageRef.child("images/" + ordemServico.key + "/" + imageFileName + ".jpg");
-
-            UploadTask uploadTask = fotoImageRef.putBytes(byteArray);
-            uploadTask.addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    // Handle unsuccessful uploads
-                }
-            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    FotoAntes fotoAntes = new FotoAntes();
-                    fotoAntes.nome = imageFileName + ".jpg";
-                    fotoAntes.foto = null;
-                    fotoAntes.caminho = fotoImageRef.getPath();
-
-                    ordemServico.fotoAntes.add(fotoAntes);
-
-                    atualizarFotoAntes(ordemServico.key, ordemServico.fotoAntes);
-
-                    File[] storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES).listFiles();
-                    for (File f: storageDir) {
-                        f.delete();
-                    }
-
-
-                    ordemServico.flgFotoAntes = true;
-                    verificarFotoAntes();
-                }
-            });
-
-
-        }catch (Exception ex){
-            Log.e(TAG, "ERRO = ", ex);
-        }
-    }
-
-
-    private void atualizarFotoAntes(String key, List<FotoAntes> lFotoAntes){
-        Map<String, List<FotoAntes>> data = new HashMap<>();
-        data.put("foto_antes", lFotoAntes);
-
-
-        db.collection("solicitacao").document(key).set(data, SetOptions.merge()).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                Log.w(TAG, "onSuccess");
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.w(TAG, "Error writing document", e);
-            }
-        });
-    }
-
-
 }

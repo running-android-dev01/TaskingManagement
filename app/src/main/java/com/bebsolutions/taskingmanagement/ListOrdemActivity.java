@@ -175,6 +175,7 @@ public class ListOrdemActivity extends AppCompatActivity implements SwipeRefresh
                                     fotoAntes.foto = getString(f, "foto");
                                     fotoAntes.nome = getString(f, "nome");
                                     fotoAntes.caminho = getString(f, "caminho");
+                                    fotoAntes.descricao = getString(f, "descricao");
                                     ordemServico.fotoAntes.add(fotoAntes);
                                 }
                             }
@@ -189,6 +190,7 @@ public class ListOrdemActivity extends AppCompatActivity implements SwipeRefresh
                                     fotoDepois.foto = getString(f, "foto");
                                     fotoDepois.nome = getString(f, "nome");
                                     fotoDepois.caminho = getString(f, "caminho");
+                                    fotoDepois.descricao = getString(f, "descricao");
                                     ordemServico.fotoDepois.add(fotoDepois);
                                 }
                             }

@@ -7,9 +7,9 @@
     <application
         android:name=".TaskingManagementApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_logo"
+        android:icon="@mipmap/ic_logo_redondo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_logo"
+        android:roundIcon="@mipmap/ic_logo_redondo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".OrdemServicoDescricaoActivity"></activity>
@@ -31,6 +31,8 @@
         <activity android:name=".ListOrdemActivity" />
         <activity android:name=".OrdemServicoAberturaActivity" />
         <activity android:name=".OrdemServicoMaterialActivity" />
+        <activity android:name=".OrdemServicoDescricaoFotoActivity" android:noHistory="true" />
+        <activity android:name=".OrdemServicoDescricaoFotoDepoisActivity" android:noHistory="true" />
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.bebsolutions.taskingmanagement.fileProvider"

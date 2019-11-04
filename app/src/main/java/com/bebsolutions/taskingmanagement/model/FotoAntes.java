@@ -7,6 +7,7 @@ public class FotoAntes implements Parcelable {
     public String foto;
     public String nome;
     public String caminho;
+    public String descricao;
 
     @Override
     public int describeContents() {
@@ -18,6 +19,7 @@ public class FotoAntes implements Parcelable {
         parcel.writeString(foto);
         parcel.writeString(nome);
         parcel.writeString(caminho);
+        parcel.writeString(descricao);
     }
 
     public static final Parcelable.Creator<FotoAntes> CREATOR
@@ -39,5 +41,6 @@ public class FotoAntes implements Parcelable {
         foto = parcel.readString();
         nome = parcel.readString();
         caminho = parcel.readString();
+        descricao = parcel.readString();
     }
 }

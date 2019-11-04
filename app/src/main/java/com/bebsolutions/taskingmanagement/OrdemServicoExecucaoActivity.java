@@ -63,12 +63,11 @@ public class OrdemServicoExecucaoActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
-    private FirebaseUser currentUser;
-    private FirebaseStorage storage;
 
     private static final int REQUEST_DESCRICAO = 1;
     private static final int REQUEST_MATERIAL = 2;
     private static final int REQUEST_TAKE_PHOTO = 3;
+    private static final int REQUEST_TAKE_PHOTO_DESCRICAO = 4;
 
     private String mCurrentPhotoPath;
     private String imageFileName;
@@ -86,9 +85,7 @@ public class OrdemServicoExecucaoActivity extends AppCompatActivity {
         btnEncerrar = findViewById(R.id.btnEncerrar);
 
         mAuth = FirebaseAuth.getInstance();
-        currentUser = mAuth.getCurrentUser();
         db = FirebaseFirestore.getInstance();
-        storage = FirebaseStorage.getInstance();
 
         if (ordemServico.dataInicio==null){
             ordemServico.dataInicio = Timestamp.now().toDate();
@@ -196,13 +193,25 @@ public class OrdemServicoExecucaoActivity extends AppCompatActivity {
             ordemServico = data.getParcelableExtra(CT_ORDEM_SERVICO);
             verificarDescricao();
         }else if (resultCode== Activity.RESULT_OK && REQUEST_TAKE_PHOTO==requestCode){
-            setPic();
-            ordemServico.flgFotoDepois = true;
-            verificarFotosDepois();
+            //setPic();
+            //ordemServico.flgFotoDepois = true;
+            //verificarFotosDepois();
+
+            Intent intent = new Intent(OrdemServicoExecucaoActivity.this, OrdemServicoDescricaoFotoDepoisActivity.class);
+            intent.putExtra(OrdemServicoDescricaoFotoDepoisActivity.CT_ORDEM_SERVICO, ordemServico);
+            intent.putExtra(OrdemServicoDescricaoFotoDepoisActivity.CT_CAMINHO, mCurrentPhotoPath);
+            intent.putExtra(OrdemServicoDescricaoFotoDepoisActivity.CT_NOME, imageFileName);
+            startActivityForResult(intent, REQUEST_TAKE_PHOTO_DESCRICAO);
+
         }else if (resultCode== Activity.RESULT_OK && REQUEST_MATERIAL==requestCode){
             ordemServico = data.getParcelableExtra(CT_ORDEM_SERVICO);
             verificarMateriais();
+        }else if (resultCode== Activity.RESULT_OK && REQUEST_TAKE_PHOTO_DESCRICAO==requestCode){
+            ordemServico = data.getParcelableExtra(CT_ORDEM_SERVICO);
+            verificarFotosDepois();
         }
+
+
     }
 
     private void setUpToolbar() {
@@ -287,6 +296,9 @@ public class OrdemServicoExecucaoActivity extends AppCompatActivity {
     private void verificarFotosDepois(){
         //ordemServico.flgFotoDepois = ordemServico.fotoDepois.size()>0;
         //btnFoto.end
+        ordemServico.flgFotoDepois = ordemServico.fotoDepois.size()>0;
+
+
         Drawable id_check = ContextCompat.getDrawable(
                 OrdemServicoExecucaoActivity.this,
                 R.mipmap.ic_check
@@ -312,116 +324,6 @@ public class OrdemServicoExecucaoActivity extends AppCompatActivity {
     private void atualizarDataInicio(String key, Date dataInicio){
         Map<String, Timestamp> data = new HashMap<>();
         data.put("dt_inicio", new Timestamp(dataInicio));
-
-        db.collection("solicitacao").document(key).set(data, SetOptions.merge()).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                Log.w(TAG, "onSuccess");
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.w(TAG, "Error writing document", e);
-            }
-        });
-    }
-
-
-    @SuppressWarnings("unchecked")
-    private void setPic() {
-        try{
-            ExifInterface exif = new ExifInterface(mCurrentPhotoPath);
-            String orientacao = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
-            int codigoOrientacao = Integer.parseInt(orientacao);
-
-            // Get the dimensions of the View
-            //ExifInterface exif = new ExifInterface(mCurrentPhotoPath);
-
-            int targetW = 2560;
-            int targetH = 1440;
-
-            // Get the dimensions of the bitmap
-            BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-            bmOptions.inJustDecodeBounds = true;
-            BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-            int photoW = bmOptions.outWidth;
-            int photoH = bmOptions.outHeight;
-
-            // Determine how much to scale down the image
-            int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
-
-            // Decode the image file into a Bitmap sized to fill the View
-            bmOptions.inJustDecodeBounds = false;
-            bmOptions.inSampleSize = scaleFactor;
-            bmOptions.inPurgeable = true;
-
-            Bitmap bitmap = BitmapFactory.decodeFile(mCurrentPhotoPath, bmOptions);
-
-
-            Matrix matrix = new Matrix();
-            switch (codigoOrientacao) {
-                case ExifInterface.ORIENTATION_NORMAL:
-                    matrix.postRotate(0);
-                    break;
-                case ExifInterface.ORIENTATION_ROTATE_90:
-                    matrix.postRotate(90);
-                    break;
-                case ExifInterface.ORIENTATION_ROTATE_180:
-                    matrix.postRotate(180);
-                    break;
-                case ExifInterface.ORIENTATION_ROTATE_270:
-                    matrix.postRotate(270);
-                    break;
-            }
-
-            bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 30, byteArrayOutputStream);
-            byte[] byteArray = byteArrayOutputStream.toByteArray();
-
-            StorageReference storageRef = storage.getReference();
-            StorageReference fotoImageRef = storageRef.child("images/" + ordemServico.key + "/" + imageFileName + ".jpg");
-
-            UploadTask uploadTask = fotoImageRef.putBytes(byteArray);
-            uploadTask.addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    // Handle unsuccessful uploads
-                }
-            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    FotoDepois fotoDepois = new FotoDepois();
-                    fotoDepois.nome = imageFileName + ".jpg";
-                    fotoDepois.foto = null;
-                    fotoDepois.caminho = fotoImageRef.getPath();
-
-                    ordemServico.fotoDepois.add(fotoDepois);
-
-                    atualizarFotoDepois(ordemServico.key, ordemServico.fotoDepois);
-
-                    File[] storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES).listFiles();
-                    for (File f: storageDir) {
-                        f.delete();
-                    }
-
-
-                    ordemServico.flgFotoDepois = true;
-                    verificarFotosDepois();
-                }
-            });
-
-
-        }catch (Exception ex){
-            Log.e(TAG, "ERRO = ", ex);
-        }
-    }
-
-    private void atualizarFotoDepois(String key, List<FotoDepois> lFotoDepois){
-        Map<String, List<FotoDepois>> data = new HashMap<>();
-        data.put("fotos", lFotoDepois);
-
 
         db.collection("solicitacao").document(key).set(data, SetOptions.merge()).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
