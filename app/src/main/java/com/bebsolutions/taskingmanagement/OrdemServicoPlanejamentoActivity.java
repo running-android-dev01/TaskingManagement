@@ -87,17 +87,19 @@ public class OrdemServicoPlanejamentoActivity extends AppCompatActivity {
 
 
         if (ordemServico.dataPrevisaoInicio!=null){
-            String dataInicio = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(ordemServico.dataPrevisaoInicio);
-            String horaInicio = new SimpleDateFormat("HH:mm", Locale.getDefault()).format(ordemServico.dataPrevisaoInicio);
-            edtDataInicio.setText(dataInicio);
-            edtHoraInicio.setText(horaInicio);
+            dataInicio.setTime(ordemServico.dataPrevisaoInicio);
+            String sDataInicio = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(ordemServico.dataPrevisaoInicio);
+            String sHoraInicio = new SimpleDateFormat("HH:mm", Locale.getDefault()).format(ordemServico.dataPrevisaoInicio);
+            edtDataInicio.setText(sDataInicio);
+            edtHoraInicio.setText(sHoraInicio);
 
         }
         if (ordemServico.dataPrevisaoFim!=null){
-            String dataFim = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(ordemServico.dataPrevisaoFim);
-            String horaFim = new SimpleDateFormat("HH:mm", Locale.getDefault()).format(ordemServico.dataPrevisaoFim);
-            edtDataFim.setText(dataFim);
-            edtHoraFim.setText(horaFim);
+            dataFim.setTime(ordemServico.dataPrevisaoFim);
+            String sDataFim = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(ordemServico.dataPrevisaoFim);
+            String sHoraFim = new SimpleDateFormat("HH:mm", Locale.getDefault()).format(ordemServico.dataPrevisaoFim);
+            edtDataFim.setText(sDataFim);
+            edtHoraFim.setText(sHoraFim);
         }
 
 
@@ -106,7 +108,7 @@ public class OrdemServicoPlanejamentoActivity extends AppCompatActivity {
                 @Override
                 public void onDateSet(DatePicker view, int year, int month, int day) {
                     edtDataInicio.setText(day + "/" + (month + 1) + "/" + year);
-                    dataInicio.set(year,month, day, dataInicio.get(Calendar.HOUR), dataInicio.get(Calendar.MINUTE));
+                    dataInicio.set(year,month, day, dataInicio.get(Calendar.HOUR_OF_DAY), dataInicio.get(Calendar.MINUTE));
                 }
             });
             newFragment.show(getSupportFragmentManager(), "datePicker");
@@ -127,7 +129,7 @@ public class OrdemServicoPlanejamentoActivity extends AppCompatActivity {
                 @Override
                 public void onDateSet(DatePicker view, int year, int month, int day) {
                     edtDataFim.setText(day + "/" + (month + 1) + "/" + year);
-                    dataFim.set(year,month, day, dataFim.get(Calendar.HOUR), dataFim.get(Calendar.MINUTE));
+                    dataFim.set(year,month, day, dataFim.get(Calendar.HOUR_OF_DAY), dataFim.get(Calendar.MINUTE));
                 }
             });
             newFragment.show(getSupportFragmentManager(), "datePicker");
@@ -171,6 +173,13 @@ public class OrdemServicoPlanejamentoActivity extends AppCompatActivity {
                     erro = true;
                 }
 
+                if (dataInicio.compareTo(dataFim)>0){
+                    edtDataFim.setError("Data final não pode ser menor que a inicial!");
+                    erro = true;
+                }
+
+
+
                 if (erro){
                     return;
                 }
@@ -207,6 +216,9 @@ public class OrdemServicoPlanejamentoActivity extends AppCompatActivity {
 
 
     private void atualizarPrevisao(){
+        final ProgressoDialog progressoDialog = ProgressoDialog.newInstance("Por favor aguarde");
+        progressoDialog.show(getSupportFragmentManager());
+
         Map<String, Object> data = new HashMap<>();
         data.put("dt_previsao_inicio", new Timestamp(dataInicio.getTime()));
         data.put("dt_previsao_fim", new Timestamp(dataFim.getTime()));
@@ -228,10 +240,13 @@ public class OrdemServicoPlanejamentoActivity extends AppCompatActivity {
         }).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
+                progressoDialog.dismiss();
+
                 Intent intent = getIntent();
                 intent.putExtra(OrdemServicoAberturaActivity.CT_ORDEM_SERVICO, ordemServico);
                 setResult(RESULT_OK, intent);
                 finish();
+
             }
         });
     }

@@ -90,6 +90,9 @@ public class OrdemServicoDescricaoActivity extends AppCompatActivity {
     }
 
     private void atualizarDescricao(){
+        final ProgressoDialog progressoDialog = ProgressoDialog.newInstance("Por favor aguarde");
+        progressoDialog.show(getSupportFragmentManager());
+
         ordemServico.flgDescricao = true;
         ordemServico.descricaoOperador = edtDescricaoFim.getText().toString();
 
@@ -109,6 +112,8 @@ public class OrdemServicoDescricaoActivity extends AppCompatActivity {
         }).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
+                progressoDialog.dismiss();
+
                 Intent i = getIntent();
                 i.putExtra(OrdemServicoExecucaoActivity.CT_ORDEM_SERVICO, ordemServico);
                 setResult(RESULT_OK, i);

@@ -268,11 +268,29 @@
         />
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnRedirecionar"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:text="Redirecionar"
+        app:layout_constraintTop_toBottomOf="@+id/txtDescricaoServico"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnPrevisao"
+        style="@style/Widget.MaterialComponents.BottomNavigationView"
+        android:textColor="@color/primaryColor"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        />
+
+
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnPrevisao"
         android:layout_width="150dp"
         android:layout_height="60dp"
         android:text="Previsão"
-        app:layout_constraintTop_toBottomOf="@+id/txtDescricaoServico"
+        app:layout_constraintTop_toBottomOf="@+id/btnRedirecionar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/btnFoto"

@@ -132,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
 
                             SharedPreferences.Editor pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit();
                             pref.putString("TELEFONE", document.getData().get("telefone").toString());
+                            pref.putInt("USUARIO_TIPO", Integer.parseInt(document.getData().get("tipo").toString()));
                             pref.apply();
 
                             //SharedPreferences pref1 = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());

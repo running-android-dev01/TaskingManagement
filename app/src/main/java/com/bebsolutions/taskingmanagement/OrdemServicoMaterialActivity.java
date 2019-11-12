@@ -75,6 +75,10 @@ public class OrdemServicoMaterialActivity extends AppCompatActivity {
 
 
     private void atualizarMaterial(String key, List<Material> lMaterial){
+        final ProgressoDialog progressoDialog = ProgressoDialog.newInstance("Por favor aguarde");
+        progressoDialog.show(getSupportFragmentManager());
+
+
         Map<String, List<Material>> data = new HashMap<>();
         data.put("material", lMaterial);
         ordemServico.flgMaterials = true;
@@ -98,6 +102,8 @@ public class OrdemServicoMaterialActivity extends AppCompatActivity {
         }).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
+                progressoDialog.dismiss();
+
                 Intent i = getIntent();
                 i.putExtra(OrdemServicoExecucaoActivity.CT_ORDEM_SERVICO, ordemServico);
                 setResult(RESULT_OK, i);

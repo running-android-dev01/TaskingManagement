@@ -55,6 +55,9 @@ public class OrdemServicoDescricaoFotoActivity extends AppCompatActivity {
 
     private AppCompatEditText edtDescricaoFim;
     private AppCompatButton btnConfirmar;
+
+    private ProgressoDialog progressoDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,6 +113,9 @@ public class OrdemServicoDescricaoFotoActivity extends AppCompatActivity {
 
     private void setPic() {
         try{
+            progressoDialog = ProgressoDialog.newInstance("Por favor aguarde");
+            progressoDialog.show(getSupportFragmentManager());
+
             ExifInterface exif = new ExifInterface(mCurrentPhotoPath);
             String orientacao = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
             int codigoOrientacao = Integer.parseInt(orientacao);
@@ -168,6 +174,7 @@ public class OrdemServicoDescricaoFotoActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(@NonNull Exception exception) {
                     // Handle unsuccessful uploads
+                    progressoDialog.dismiss();
                 }
             }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -200,12 +207,17 @@ public class OrdemServicoDescricaoFotoActivity extends AppCompatActivity {
 
     private void atualizarFotoAntes(String key, List<FotoAntes> lFotoAntes){
         Map<String, Object> data = new HashMap<>();
+        for (int i = 0; i<lFotoAntes.size(); i++){
+            lFotoAntes.get(i).ordemFoto = (i+1);
+        }
         data.put("foto_antes", lFotoAntes);
 
         db.collection("solicitacao").document(key).set(data, SetOptions.merge()).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Log.w(TAG, "onSuccess");
+                progressoDialog.dismiss();
+
                 ordemServico.flgFotoAntes = true;
                 Intent i = getIntent();
                 i.putExtra(OrdemServicoAberturaActivity.CT_ORDEM_SERVICO, ordemServico);

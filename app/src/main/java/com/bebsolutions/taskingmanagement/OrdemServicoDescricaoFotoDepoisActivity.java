@@ -56,6 +56,10 @@ public class OrdemServicoDescricaoFotoDepoisActivity extends AppCompatActivity {
 
     private AppCompatEditText edtDescricaoFim;
     private AppCompatButton btnConfirmar;
+
+    private ProgressoDialog progressoDialog;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,6 +115,9 @@ public class OrdemServicoDescricaoFotoDepoisActivity extends AppCompatActivity {
 
     private void setPic() {
         try{
+            progressoDialog = ProgressoDialog.newInstance("Por favor aguarde");
+            progressoDialog.show(getSupportFragmentManager());
+
             ExifInterface exif = new ExifInterface(mCurrentPhotoPath);
             String orientacao = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
             int codigoOrientacao = Integer.parseInt(orientacao);
@@ -200,12 +207,18 @@ public class OrdemServicoDescricaoFotoDepoisActivity extends AppCompatActivity {
 
     private void atualizarFotoDepois(String key, List<FotoDepois> lFotoDepois){
         Map<String, Object> data = new HashMap<>();
+        for (int i = 0; i<lFotoDepois.size(); i++){
+            lFotoDepois.get(i).ordemFoto = (i+1);
+        }
         data.put("fotos", lFotoDepois);
 
         db.collection("solicitacao").document(key).set(data, SetOptions.merge()).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Log.w(TAG, "onSuccess");
+                progressoDialog.dismiss();
+
+
                 ordemServico.flgFotoDepois = true;
                 Intent i = getIntent();
                 i.putExtra(OrdemServicoExecucaoActivity.CT_ORDEM_SERVICO, ordemServico);

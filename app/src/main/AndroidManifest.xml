@@ -30,9 +30,11 @@
         </activity>
         <activity android:name=".ListOrdemActivity" />
         <activity android:name=".OrdemServicoAberturaActivity" />
-        <activity android:name=".OrdemServicoMaterialActivity" />
+        <activity android:name=".OrdemServicoMaterialActivity"  android:noHistory="true" />
         <activity android:name=".OrdemServicoDescricaoFotoActivity" android:noHistory="true" />
         <activity android:name=".OrdemServicoDescricaoFotoDepoisActivity" android:noHistory="true" />
+        <activity android:name=".OrdemServicoRedirecionarActivity" android:noHistory="true" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.bebsolutions.taskingmanagement.fileProvider"

@@ -1,6 +1,7 @@
 package com.bebsolutions.taskingmanagement;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -34,6 +35,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Base64;
@@ -61,7 +63,8 @@ public class OrdemServicoAberturaActivity extends AppCompatActivity {
 
     private static final int REQUEST_TAKE_PHOTO = 1;
     private static final int REQUEST_TAKE_ORDEM = 2;
-    private static final int REQUEST_TAKE_PHOTO_DESCRICAO = 3;
+    private static final int REQUEST_TAKE_REDIRECIONAR = 3;
+    private static final int REQUEST_TAKE_PHOTO_DESCRICAO = 4;
 
     private String mCurrentPhotoPath;
     private String imageFileName;
@@ -77,6 +80,7 @@ public class OrdemServicoAberturaActivity extends AppCompatActivity {
     AppCompatTextView txtSolicitante;
     AppCompatTextView txtDescricaoServico;
 
+    AppCompatButton btnRedirecionar;
     AppCompatButton btnPrevisao;
     AppCompatButton btnFoto;
     AppCompatButton btnExecutar;
@@ -97,6 +101,7 @@ public class OrdemServicoAberturaActivity extends AppCompatActivity {
         txtSolicitante = findViewById(R.id.txtSolicitante);
         txtDescricaoServico = findViewById(R.id.txtDescricaoServico);
 
+        btnRedirecionar = findViewById(R.id.btnRedirecionar);
         btnPrevisao = findViewById(R.id.btnPrevisao);
         btnFoto = findViewById(R.id.btnFoto);
         btnExecutar = findViewById(R.id.btnExecutar);
@@ -121,6 +126,20 @@ public class OrdemServicoAberturaActivity extends AppCompatActivity {
         txtLocal.setText(ordemServico.local);
         txtSolicitante.setText(ordemServico.solicitante);
         txtDescricaoServico.setText(ordemServico.descricaoSolicitante);
+
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        //Log.d(TAG, pref.getString("TELEFONE", ""));
+        int tipo = pref.getInt("USUARIO_TIPO", 4);
+
+        btnRedirecionar.setVisibility(View.GONE);
+        if (tipo==3){
+            btnRedirecionar.setVisibility(View.VISIBLE);
+        }
+        btnRedirecionar.setOnClickListener((v)-> {
+            Intent intent = new Intent(OrdemServicoAberturaActivity.this, OrdemServicoRedirecionarActivity.class);
+            intent.putExtra(OrdemServicoRedirecionarActivity.CT_ORDEM_SERVICO, ordemServico);
+            startActivityForResult(intent, REQUEST_TAKE_REDIRECIONAR);
+        });
 
         btnPrevisao.setOnClickListener((v)-> {
             Intent intent = new Intent(OrdemServicoAberturaActivity.this, OrdemServicoPlanejamentoActivity.class);

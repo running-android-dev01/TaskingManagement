@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class FotoAntes implements Parcelable {
+    public int ordemFoto;
     public String foto;
     public String nome;
     public String caminho;
@@ -16,6 +17,7 @@ public class FotoAntes implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(ordemFoto);
         parcel.writeString(foto);
         parcel.writeString(nome);
         parcel.writeString(caminho);
@@ -38,6 +40,7 @@ public class FotoAntes implements Parcelable {
     }
 
     public FotoAntes(Parcel parcel){
+        ordemFoto = parcel.readInt();
         foto = parcel.readString();
         nome = parcel.readString();
         caminho = parcel.readString();
