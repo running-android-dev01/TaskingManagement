@@ -110,8 +110,8 @@ public class OrdemServicoEncerrarActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<Void> task) {
 
                     Map<String, Object> data = new HashMap<>();
-                    //ordemServico.idSituacao = 3;
-                    //data.put("idSituacao", ordemServico.idSituacao);
+                    ordemServico.idSituacao = 3;
+                    data.put("idSituacao", ordemServico.idSituacao);
                     data.put("dt_transmissao", new Timestamp(new Date()));
 
                     db.collection("solicitacao").document(ordemServico.key).set(data, SetOptions.merge()).addOnSuccessListener(new OnSuccessListener<Void>() {

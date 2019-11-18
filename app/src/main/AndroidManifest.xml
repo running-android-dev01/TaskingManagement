@@ -30,10 +30,12 @@
         </activity>
         <activity android:name=".ListOrdemActivity" />
         <activity android:name=".OrdemServicoAberturaActivity" />
-        <activity android:name=".OrdemServicoMaterialActivity"  android:noHistory="true" />
+        <activity android:name=".OrdemServicoMaterialActivity" />
         <activity android:name=".OrdemServicoDescricaoFotoActivity" android:noHistory="true" />
         <activity android:name=".OrdemServicoDescricaoFotoDepoisActivity" android:noHistory="true" />
         <activity android:name=".OrdemServicoRedirecionarActivity" android:noHistory="true" />
+        <activity android:name=".OrdemServicoMaterialAdicionarActivity" />
+
 
         <provider
             android:name="androidx.core.content.FileProvider"

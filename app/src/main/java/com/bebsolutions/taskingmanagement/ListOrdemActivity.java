@@ -204,7 +204,7 @@ public class ListOrdemActivity extends AppCompatActivity implements SwipeRefresh
                                     Material material = new Material();
                                     material.uid = getString(f, "id");
                                     material.descricao = getString(f, "descricao");
-                                    material.unidade = getString(f, "unidade_medida");
+                                    material.unidade = getString(f, "unidade");
                                     material.quantidade = getString(f, "quantidade");
 
                                     if (ordemServico.flgMaterials){

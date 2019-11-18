@@ -1,13 +1,16 @@
 package com.bebsolutions.taskingmanagement;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.Toolbar;
@@ -36,6 +39,8 @@ import java.util.Map;
 public class OrdemServicoMaterialActivity extends AppCompatActivity {
     private static String TAG = OrdemServicoMaterialActivity.class.getName();
     public static String CT_ORDEM_SERVICO = OrdemServicoMaterialActivity.class + ".ORDEM_SERVICO";
+
+    private static final int REQUEST_ADICIONAR = 1;
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
@@ -138,6 +143,12 @@ public class OrdemServicoMaterialActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_ordem_servico_material, menu);
+        //return super.onCreateOptionsMenu(menu);
+        return true;
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -147,7 +158,23 @@ public class OrdemServicoMaterialActivity extends AppCompatActivity {
             finish();
             return true;
         }
+        if(id == R.id.action_adicionar){
+            //finish();
+            Intent intent = new Intent(OrdemServicoMaterialActivity.this, OrdemServicoMaterialAdicionarActivity.class);
+            intent.putExtra(OrdemServicoMaterialAdicionarActivity.CT_ORDEM_SERVICO, ordemServico);
+            startActivityForResult(intent, REQUEST_ADICIONAR);
+            return true;
+        }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==REQUEST_ADICIONAR && resultCode== Activity.RESULT_OK){
+            ordemServico = data.getParcelableExtra(CT_ORDEM_SERVICO);
+            adapter.atualizarLista(ordemServico.materials);
+        }
     }
 
     @Override
