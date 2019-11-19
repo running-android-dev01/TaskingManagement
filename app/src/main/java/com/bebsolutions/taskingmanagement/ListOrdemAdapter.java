@@ -76,7 +76,7 @@ public class ListOrdemAdapter extends RecyclerView.Adapter<ListOrdemViewHolder> 
         }
 
         holder.itemView.setOnClickListener((v) -> {
-            if (ordemServico.idSituacao==3){
+            if (ordemServico.idSituacao==5){
                 Toast.makeText(context, "Ordem já transmitida!", Toast.LENGTH_SHORT).show();
                 return;
             }

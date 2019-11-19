@@ -64,6 +64,7 @@ public class OrdemServicoRedirecionarAdapter extends RecyclerView.Adapter<OrdemS
                 progressoDialog.show(((AppCompatActivity)context).getSupportFragmentManager());
 
                 Map<String, Object> data = new HashMap<>();
+                data.put("idSituacao", 4);
                 data.put("nome_operador", operador.nome);
                 data.put("idOperador", operador.telefone);
                 data.put("telefone_operador", operador.telefone);
