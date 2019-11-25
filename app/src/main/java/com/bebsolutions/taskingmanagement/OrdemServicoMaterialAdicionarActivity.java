@@ -47,7 +47,7 @@ public class OrdemServicoMaterialAdicionarActivity extends AppCompatActivity {
     OrdemServico ordemServico;
 
     private AppCompatEditText edtMaterial;
-    private AppCompatSpinner spnUnidade;
+    private AppCompatEditText edtQuantidade;
     private AppCompatButton btnAdicionar;
 
 
@@ -59,16 +59,12 @@ public class OrdemServicoMaterialAdicionarActivity extends AppCompatActivity {
         ordemServico = getIntent().getParcelableExtra(CT_ORDEM_SERVICO);
 
         edtMaterial = findViewById(R.id.edtMaterial);
-        spnUnidade = findViewById(R.id.spnUnidade);
+        edtQuantidade = findViewById(R.id.edtQuantidade);
         btnAdicionar = findViewById(R.id.btnAdicionar);
 
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
         db = FirebaseFirestore.getInstance();
-
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.unidades_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spnUnidade.setAdapter(adapter);
 
         setUpToolbar();
 
@@ -80,12 +76,10 @@ public class OrdemServicoMaterialAdicionarActivity extends AppCompatActivity {
                     return;
                 }
 
-                List<Material> m = ordemServico.materials;
-
                 Material material = new Material();
                 material.descricao = edtMaterial.getText().toString();
-                material.unidade = spnUnidade.getSelectedItem().toString();
-                material.quantidade = "";
+                material.unidade = "";
+                material.quantidade = edtQuantidade.getText().toString();
 
                 ordemServico.materials.add(material);
 

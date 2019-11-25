@@ -11,7 +11,8 @@
     <color name="colorBackground">#fafafa</color>
     <color name="errorColor">#B00020</color>
     <color name="errorOnColor">#FF0000</color>
-    <color name="colorOnBackground">#212121</color>
+    <color name="colorOnBackground">#414141</color>
+
 
     <color name="lightSkyBlue">#87CEFA</color>
     <color name="lightSalmon">#FFA07A</color>

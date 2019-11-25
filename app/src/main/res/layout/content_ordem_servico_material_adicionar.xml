@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,90 +7,99 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".OrdemServicoPlanejamentoActivity">
-    <!--tools:showIn="@layout/activity_ordem_servico_execucao">-->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <!--tools:showIn="@layout/activity_ordem_servico_execucao">-->
 
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/txtTitulo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ordem de serviço - Material adicionar"
-        android:gravity="center"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        style="@style/TextAppearance.MaterialComponents.Headline6"
-        />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ordem de serviço - Material adicionar"
+            android:gravity="center"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
+            />
 
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/txtMaterial"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Material:"
-        android:gravity="center"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtTitulo"
-        style="@style/TextAppearance.MaterialComponents.Body2"
-        />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtMaterial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Material:"
+            android:gravity="center"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/edtMaterial"
+            app:layout_constraintBottom_toBottomOf="@+id/edtMaterial"
+            style="@style/Body2"
+            />
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/edtMaterial"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.TextView"
-        app:layout_constraintStart_toEndOf="@+id/txtMaterial"
-        app:layout_constraintTop_toBottomOf="@+id/txtTitulo"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edtMaterial"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextView"
+            app:layout_constraintStart_toEndOf="@+id/txtMaterial"
+            app:layout_constraintTop_toBottomOf="@+id/txtTitulo"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/txtUnidade"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Unidade:"
-        android:gravity="center"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtMaterial"
-        style="@style/TextAppearance.MaterialComponents.Body2"
-        />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtQuantidade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Unidade:"
+            android:gravity="center"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/edtQuantidade"
+            app:layout_constraintBottom_toBottomOf="@+id/edtQuantidade"
+            style="@style/Body2"
+            />
 
-    <androidx.appcompat.widget.AppCompatSpinner
-        android:id="@+id/spnUnidade"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        style="@style/Widget.AppCompat.Spinner"
-        app:layout_constraintStart_toEndOf="@+id/txtUnidade"
-        app:layout_constraintTop_toBottomOf="@+id/edtMaterial"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edtQuantidade"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextView"
+            app:layout_constraintTop_toBottomOf="@+id/edtMaterial"
+            app:layout_constraintStart_toEndOf="@+id/txtQuantidade"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:digits="0123456789"
+            android:inputType="number"
+            />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnAdicionar"
-        android:layout_width="150dp"
-        android:layout_height="60dp"
-        android:text="Adicionar"
-        app:layout_constraintTop_toBottomOf="@+id/spnUnidade"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        style="@style/Widget.MaterialComponents.BottomNavigationView"
-        android:textColor="@color/secondaryTextColor"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnAdicionar"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:text="Adicionar"
+            app:layout_constraintTop_toBottomOf="@+id/edtQuantidade"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            style="@style/Widget.MaterialComponents.BottomNavigationView"
+            android:textColor="@color/secondaryTextColor"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
