@@ -92,9 +92,22 @@ public class OrdemServicoEncerrarActivity extends AppCompatActivity {
         btnTransmite.setOnClickListener((v) -> {
             ordemServico.flgTransmitida = true;
 
-            Map<String, String> data = new HashMap<>();
+            Map<String, Object> data = new HashMap<>();
             data.put("flg_transmitir", "S");
+            ordemServico.idSituacao = 5;
+            data.put("idSituacao", 5);
+            data.put("dt_transmissao", new Timestamp(new Date()));
 
+            db.collection("solicitacao").document(ordemServico.key).set(data, SetOptions.merge());
+
+            Intent intent = new Intent(OrdemServicoEncerrarActivity.this, ListOrdemActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+
+            //Map<String, Object> data = new HashMap<>();
+
+
+            /*
             db.collection("solicitacao").document(ordemServico.key).set(data, SetOptions.merge()).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
@@ -136,6 +149,7 @@ public class OrdemServicoEncerrarActivity extends AppCompatActivity {
                     });
                 }
             });
+            */
         });
 
         setUpToolbar();

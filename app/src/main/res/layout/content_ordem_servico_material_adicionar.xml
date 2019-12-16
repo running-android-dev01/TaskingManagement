@@ -58,10 +58,37 @@
             />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/txtQuantidade"
+            android:id="@+id/txtUnidade"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Unidade:"
+            android:gravity="center"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/edtUnidade"
+            app:layout_constraintBottom_toBottomOf="@+id/edtUnidade"
+            style="@style/Body2"
+            />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edtUnidade"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextView"
+            app:layout_constraintTop_toBottomOf="@+id/edtMaterial"
+            app:layout_constraintStart_toEndOf="@+id/txtUnidade"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:inputType="text"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtQuantidade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Quantidade:"
             android:gravity="center"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
@@ -78,7 +105,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.TextView"
-            app:layout_constraintTop_toBottomOf="@+id/edtMaterial"
+            app:layout_constraintTop_toBottomOf="@+id/edtUnidade"
             app:layout_constraintStart_toEndOf="@+id/txtQuantidade"
             app:layout_constraintEnd_toEndOf="parent"
             android:digits="0123456789"

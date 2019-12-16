@@ -299,7 +299,9 @@ public class OrdemServicoAberturaActivity extends AppCompatActivity {
         data.put("dt_abertura", new Timestamp(dataAbertura));
         //data.put("foto_antes", null);
 
-        db.collection("solicitacao").document(key).set(data, SetOptions.merge()).addOnSuccessListener(new OnSuccessListener<Void>() {
+        db.collection("solicitacao").document(key).set(data, SetOptions.merge());
+
+        /*db.collection("solicitacao").document(key).set(data, SetOptions.merge()).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Log.w(TAG, "onSuccess");
@@ -309,7 +311,7 @@ public class OrdemServicoAberturaActivity extends AppCompatActivity {
             public void onFailure(@NonNull Exception e) {
                 Log.w(TAG, "Error writing document", e);
             }
-        });
+        });*/
     }
 
     @Override

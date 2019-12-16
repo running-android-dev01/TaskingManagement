@@ -115,6 +115,13 @@ public class OrdemServicoExecucaoActivity extends AppCompatActivity {
             Map<String, Object> data = new HashMap<>();
             data.put("dt_termino", new Timestamp(ordemServico.dataTermino));
 
+            db.collection("solicitacao").document(ordemServico.key).set(data, SetOptions.merge());
+
+            Intent intent = new Intent(OrdemServicoExecucaoActivity.this, OrdemServicoEncerrarActivity.class);
+            intent.putExtra(OrdemServicoEncerrarActivity.CT_ORDEM_SERVICO, ordemServico);
+            startActivity(intent);
+
+            /*
             db.collection("solicitacao").document(ordemServico.key).set(data, SetOptions.merge()).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
@@ -134,6 +141,7 @@ public class OrdemServicoExecucaoActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
+            */
         });
 
 
@@ -325,6 +333,9 @@ public class OrdemServicoExecucaoActivity extends AppCompatActivity {
         Map<String, Timestamp> data = new HashMap<>();
         data.put("dt_inicio", new Timestamp(dataInicio));
 
+        db.collection("solicitacao").document(key).set(data, SetOptions.merge());
+
+        /*
         db.collection("solicitacao").document(key).set(data, SetOptions.merge()).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
@@ -336,5 +347,6 @@ public class OrdemServicoExecucaoActivity extends AppCompatActivity {
                 Log.w(TAG, "Error writing document", e);
             }
         });
+        */
     }
 }

@@ -93,7 +93,15 @@ public class OrdemServicoMaterialActivity extends AppCompatActivity {
             }
         }
 
+        db.collection("solicitacao").document(key).set(data, SetOptions.merge());
 
+        Intent i = getIntent();
+        i.putExtra(OrdemServicoExecucaoActivity.CT_ORDEM_SERVICO, ordemServico);
+        setResult(RESULT_OK, i);
+        finish();
+
+
+        /*
         db.collection("solicitacao").document(key).set(data, SetOptions.merge()).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
@@ -115,6 +123,7 @@ public class OrdemServicoMaterialActivity extends AppCompatActivity {
                 finish();
             }
         });
+        */
     }
 
     private void setupRecycler() {

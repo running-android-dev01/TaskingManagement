@@ -99,7 +99,14 @@ public class OrdemServicoDescricaoActivity extends AppCompatActivity {
         Map<String, String> data = new HashMap<>();
         data.put("descricao_realizado", edtDescricaoFim.getText().toString());
 
-        db.collection("solicitacao").document(ordemServico.key).set(data, SetOptions.merge()).addOnSuccessListener(new OnSuccessListener<Void>() {
+        db.collection("solicitacao").document(ordemServico.key).set(data, SetOptions.merge());
+
+        Intent i = getIntent();
+        i.putExtra(OrdemServicoExecucaoActivity.CT_ORDEM_SERVICO, ordemServico);
+        setResult(RESULT_OK, i);
+        finish();
+
+        /*db.collection("solicitacao").document(ordemServico.key).set(data, SetOptions.merge()).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Log.w(TAG, "onSuccess");
@@ -119,6 +126,6 @@ public class OrdemServicoDescricaoActivity extends AppCompatActivity {
                 setResult(RESULT_OK, i);
                 finish();
             }
-        });
+        });*/
     }
 }

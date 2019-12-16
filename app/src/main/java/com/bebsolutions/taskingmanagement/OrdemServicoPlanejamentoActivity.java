@@ -29,6 +29,7 @@ import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.SetOptions;
 
 import java.text.SimpleDateFormat;
@@ -227,6 +228,18 @@ public class OrdemServicoPlanejamentoActivity extends AppCompatActivity {
         ordemServico.dataPrevisaoInicio = dataInicio.getTime();
         ordemServico.dataPrevisaoFim = dataFim.getTime();
 
+
+
+        db.collection("solicitacao").document(ordemServico.key).set(data, SetOptions.merge());
+
+        progressoDialog.dismiss();
+
+        Intent intent = getIntent();
+        intent.putExtra(OrdemServicoAberturaActivity.CT_ORDEM_SERVICO, ordemServico);
+        setResult(RESULT_OK, intent);
+        finish();
+
+        /*
         db.collection("solicitacao").document(ordemServico.key).set(data, SetOptions.merge()).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
@@ -249,5 +262,6 @@ public class OrdemServicoPlanejamentoActivity extends AppCompatActivity {
 
             }
         });
+        */
     }
 }

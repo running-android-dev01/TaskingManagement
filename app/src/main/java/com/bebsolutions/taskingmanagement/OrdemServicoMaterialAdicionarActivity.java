@@ -33,6 +33,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import io.opencensus.internal.StringUtils;
 
@@ -47,6 +48,7 @@ public class OrdemServicoMaterialAdicionarActivity extends AppCompatActivity {
     OrdemServico ordemServico;
 
     private AppCompatEditText edtMaterial;
+    private AppCompatEditText edtUnidade;
     private AppCompatEditText edtQuantidade;
     private AppCompatButton btnAdicionar;
 
@@ -59,6 +61,7 @@ public class OrdemServicoMaterialAdicionarActivity extends AppCompatActivity {
         ordemServico = getIntent().getParcelableExtra(CT_ORDEM_SERVICO);
 
         edtMaterial = findViewById(R.id.edtMaterial);
+        edtUnidade = findViewById(R.id.edtUnidade);
         edtQuantidade = findViewById(R.id.edtQuantidade);
         btnAdicionar = findViewById(R.id.btnAdicionar);
 
@@ -77,8 +80,9 @@ public class OrdemServicoMaterialAdicionarActivity extends AppCompatActivity {
                 }
 
                 Material material = new Material();
+                material.uid = UUID.randomUUID().toString();
                 material.descricao = edtMaterial.getText().toString();
-                material.unidade = "";
+                material.unidade = edtUnidade.getText().toString();
                 material.quantidade = edtQuantidade.getText().toString();
 
                 ordemServico.materials.add(material);
@@ -89,6 +93,14 @@ public class OrdemServicoMaterialAdicionarActivity extends AppCompatActivity {
                 Map<String, List<Material>> data = new HashMap<>();
                 data.put("material", ordemServico.materials);
 
+                db.collection("solicitacao").document(ordemServico.key).set(data, SetOptions.merge());
+
+                Intent i = getIntent();
+                i.putExtra(OrdemServicoMaterialActivity.CT_ORDEM_SERVICO, ordemServico);
+                setResult(RESULT_OK, i);
+                finish();
+
+                /*
                 db.collection("solicitacao").document(ordemServico.key).set(data, SetOptions.merge()).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -110,6 +122,7 @@ public class OrdemServicoMaterialAdicionarActivity extends AppCompatActivity {
                         finish();
                     }
                 });
+                */
 
             }
         });

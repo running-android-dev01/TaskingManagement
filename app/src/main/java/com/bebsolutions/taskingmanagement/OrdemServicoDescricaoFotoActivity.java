@@ -28,6 +28,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -170,7 +171,33 @@ public class OrdemServicoDescricaoFotoActivity extends AppCompatActivity {
             StorageReference fotoImageRef = storageRef.child("images/" + ordemServico.key + "/" + imageFileName + ".jpg");
 
             UploadTask uploadTask = fotoImageRef.putBytes(byteArray);
-            uploadTask.addOnFailureListener(new OnFailureListener() {
+            uploadTask.addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(UploadTask.TaskSnapshot snapshot) {
+                    //System.out.println(snapshot.getBytesTransferred().toString());
+                    System.out.println(Long.toString(snapshot.getBytesTransferred()));
+                }
+            });
+
+            FotoAntes fotoAntes = new FotoAntes();
+            fotoAntes.nome = imageFileName + ".jpg";
+            fotoAntes.foto = null;
+            fotoAntes.caminho = fotoImageRef.getPath();
+            fotoAntes.descricao = edtDescricaoFim.getText().toString();
+
+            ordemServico.fotoAntes.add(fotoAntes);
+
+            atualizarFotoAntes(ordemServico.key, ordemServico.fotoAntes);
+
+            File[] storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES).listFiles();
+            for (File f: storageDir) {
+                f.delete();
+            }
+
+
+            ordemServico.flgFotoAntes = true;
+
+            /*uploadTask.addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception exception) {
                     // Handle unsuccessful uploads
@@ -197,7 +224,7 @@ public class OrdemServicoDescricaoFotoActivity extends AppCompatActivity {
 
                     ordemServico.flgFotoAntes = true;
                 }
-            });
+            });*/
 
 
         }catch (Exception ex){
@@ -212,6 +239,17 @@ public class OrdemServicoDescricaoFotoActivity extends AppCompatActivity {
         }
         data.put("foto_antes", lFotoAntes);
 
+        db.collection("solicitacao").document(key).set(data, SetOptions.merge());
+
+        progressoDialog.dismiss();
+
+        ordemServico.flgFotoAntes = true;
+        Intent i = getIntent();
+        i.putExtra(OrdemServicoAberturaActivity.CT_ORDEM_SERVICO, ordemServico);
+        setResult(RESULT_OK, i);
+        finish();
+
+        /*
         db.collection("solicitacao").document(key).set(data, SetOptions.merge()).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
@@ -231,6 +269,7 @@ public class OrdemServicoDescricaoFotoActivity extends AppCompatActivity {
                 Log.w(TAG, "Error writing document", e);
             }
         });
+        */
     }
 }
 

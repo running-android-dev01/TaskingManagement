@@ -202,7 +202,7 @@ public class ListOrdemActivity extends AppCompatActivity implements SwipeRefresh
                                 for (int i = 0; i<lMaterial.size(); i++){
                                     Map<String, Object> f = lMaterial.get(i);
                                     Material material = new Material();
-                                    material.uid = getString(f, "id");
+                                    material.uid = getString(f, "uid");
                                     material.descricao = getString(f, "descricao");
                                     material.unidade = getString(f, "unidade");
                                     material.quantidade = getString(f, "quantidade");
